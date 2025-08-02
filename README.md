@@ -194,7 +194,7 @@ For testing purposes, you can use this demo accounts:
 - Toast notifications for user feedback
 - Smooth animations and transitions
 - Professional LinkedIn-inspired design
-- Dark mode support (planned)
+- Dark mode support
 
 
 ## 🔒 Security Features

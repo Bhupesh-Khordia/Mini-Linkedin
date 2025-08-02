@@ -91,7 +91,7 @@ export default function ProfilePage() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
       <Header />
       
       <main className="max-w-4xl mx-auto px-4 py-8">
@@ -105,12 +105,12 @@ export default function ProfilePage() {
                 </span>
               </div>
               <div>
-                <h1 className="text-2xl font-bold text-gray-900">{user.name}</h1>
-                <p className="text-gray-600 mt-1">{user.email}</p>
+                <h1 className="text-2xl font-bold text-gray-900 dark:text-white">{user.name}</h1>
+                <p className="text-gray-600 dark:text-gray-400 mt-1">{user.email}</p>
                 {user.bio && (
-                  <p className="text-gray-700 mt-2 max-w-md">{user.bio}</p>
+                  <p className="text-gray-700 dark:text-gray-300 mt-2 max-w-md">{user.bio}</p>
                 )}
-                <div className="flex items-center space-x-6 mt-4 text-sm text-gray-500">
+                <div className="flex items-center space-x-6 mt-4 text-sm text-gray-500 dark:text-gray-400">
                   <div className="flex items-center space-x-1">
                     <Calendar className="w-4 h-4" />
                     <span>Joined {new Date(user.createdAt).toLocaleDateString()}</span>

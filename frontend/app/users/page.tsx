@@ -78,27 +78,27 @@ export default function UsersPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
       <Header />
       
       <main className="max-w-4xl mx-auto px-4 py-8">
         <div className="mb-6">
-          <h1 className="text-2xl font-bold text-gray-900">People</h1>
-          <p className="text-gray-600 mt-1">Discover and connect with other professionals</p>
+          <h1 className="text-2xl font-bold text-gray-900 dark:text-white">People</h1>
+          <p className="text-gray-600 dark:text-gray-400 mt-1">Discover and connect with other professionals</p>
         </div>
 
         {isLoading ? (
           <div className="text-center py-12">
             <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-linkedin-600 mx-auto"></div>
-            <p className="mt-4 text-gray-600">Loading users...</p>
+            <p className="mt-4 text-gray-600 dark:text-gray-400">Loading users...</p>
           </div>
         ) : users.length === 0 ? (
           <div className="text-center py-12">
-            <div className="w-16 h-16 bg-gray-200 rounded-full flex items-center justify-center mx-auto mb-4">
-              <Users className="w-8 h-8 text-gray-400" />
+            <div className="w-16 h-16 bg-gray-200 dark:bg-gray-700 rounded-full flex items-center justify-center mx-auto mb-4">
+              <Users className="w-8 h-8 text-gray-400 dark:text-gray-500" />
             </div>
-            <h3 className="text-lg font-medium text-gray-900 mb-2">No users found</h3>
-            <p className="text-gray-500">Be the first to join the community!</p>
+            <h3 className="text-lg font-medium text-gray-900 dark:text-white mb-2">No users found</h3>
+            <p className="text-gray-500 dark:text-gray-400">Be the first to join the community!</p>
           </div>
         ) : (
           <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
@@ -113,26 +113,26 @@ export default function UsersPage() {
                       </span>
                     </div>
                     <div className="flex-1">
-                      <h3 className="font-semibold text-gray-900">{user.name}</h3>
-                      <p className="text-sm text-gray-600">{user.email}</p>
+                      <h3 className="font-semibold text-gray-900 dark:text-white">{user.name}</h3>
+                      <p className="text-sm text-gray-600 dark:text-gray-400">{user.email}</p>
                       {user.bio && (
-                        <p className="text-sm text-gray-700 mt-1 line-clamp-2">
+                        <p className="text-sm text-gray-700 dark:text-gray-300 mt-1 line-clamp-2">
                           {user.bio}
                         </p>
                       )}
-                      <div className="flex items-center space-x-4 mt-2 text-xs text-gray-500">
+                      <div className="flex items-center space-x-4 mt-2 text-xs text-gray-500 dark:text-gray-400">
                         <span>{user.followers.length} followers</span>
                         <span>{user.following.length} following</span>
                       </div>
                     </div>
                   </div>
                   
-                  <div className="mt-4 pt-4 border-t border-gray-100">
+                  <div className="mt-4 pt-4 border-t border-gray-100 dark:border-gray-700">
                     <button
                       onClick={() => handleFollow(user._id)}
                       className={`w-full flex items-center justify-center space-x-2 py-2 px-4 rounded-lg transition-colors ${
                         isFollowing(user._id)
-                          ? 'bg-gray-200 text-gray-700 hover:bg-gray-300'
+                          ? 'bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-300 dark:hover:bg-gray-600'
                           : 'bg-linkedin-600 text-white hover:bg-linkedin-700'
                       }`}
                     >
