@@ -324,7 +324,7 @@ export default function SettingsPage() {
             <div>
               <h3 className="text-sm font-medium text-blue-900 dark:text-blue-100">Coming Soon</h3>
               <p className="text-sm text-blue-700 dark:text-blue-300 mt-1">
-                We're working on additional features like email change, password updates, and two-factor authentication. 
+                I'm working on additional features like email change, password updates, and two-factor authentication. 
                 These will be available in future updates.
               </p>
             </div>
