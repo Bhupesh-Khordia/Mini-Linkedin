@@ -3,17 +3,27 @@
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import { User, LogOut, Settings, Search, Menu, X } from 'lucide-react';
+import { User, LogOut, Settings, Search, Menu, X, Moon, Sun } from 'lucide-react';
 import { auth, User as UserType } from '@/lib/auth';
 import toast from 'react-hot-toast';
 
 export default function Header() {
   const [user, setUser] = useState<UserType | null>(null);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isDarkMode, setIsDarkMode] = useState(false);
   const router = useRouter();
 
   useEffect(() => {
     setUser(auth.getCurrentUser());
+    
+    // Load dark mode preference from localStorage
+    const savedDarkMode = localStorage.getItem('darkMode') === 'true';
+    setIsDarkMode(savedDarkMode);
+    
+    // Apply dark mode to document
+    if (savedDarkMode) {
+      document.documentElement.classList.add('dark');
+    }
   }, []);
 
   const handleLogout = () => {
@@ -23,8 +33,23 @@ export default function Header() {
     router.push('/login');
   };
 
+  const handleDarkModeToggle = () => {
+    const newDarkMode = !isDarkMode;
+    setIsDarkMode(newDarkMode);
+    localStorage.setItem('darkMode', newDarkMode.toString());
+    
+    // Apply dark mode to document
+    if (newDarkMode) {
+      document.documentElement.classList.add('dark');
+    } else {
+      document.documentElement.classList.remove('dark');
+    }
+    
+    toast.success(newDarkMode ? 'Dark mode enabled' : 'Light mode enabled');
+  };
+
   return (
-    <header className="bg-white shadow-sm border-b border-gray-200 sticky top-0 z-50">
+    <header className="bg-white dark:bg-gray-800 shadow-sm border-b border-gray-200 dark:border-gray-700 sticky top-0 z-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
           {/* Logo */}
@@ -32,20 +57,20 @@ export default function Header() {
             <div className="w-8 h-8 bg-linkedin-600 rounded-lg flex items-center justify-center">
               <span className="text-white font-bold text-lg">L</span>
             </div>
-            <span className="text-xl font-semibold text-gray-900">LinkedIn Clone</span>
+            <span className="text-xl font-semibold text-gray-900 dark:text-white">LinkedIn Clone</span>
           </Link>
 
           {/* Desktop Navigation */}
           <nav className="hidden md:flex items-center space-x-8">
-            <Link href="/" className="text-gray-700 hover:text-linkedin-600 transition-colors">
+            <Link href="/" className="text-gray-700 dark:text-gray-300 hover:text-linkedin-600 dark:hover:text-linkedin-400 transition-colors">
               Home
             </Link>
             {user && (
               <>
-                <Link href="/profile" className="text-gray-700 hover:text-linkedin-600 transition-colors">
+                <Link href="/profile" className="text-gray-700 dark:text-gray-300 hover:text-linkedin-600 dark:hover:text-linkedin-400 transition-colors">
                   Profile
                 </Link>
-                <Link href="/users" className="text-gray-700 hover:text-linkedin-600 transition-colors">
+                <Link href="/users" className="text-gray-700 dark:text-gray-300 hover:text-linkedin-600 dark:hover:text-linkedin-400 transition-colors">
                   People
                 </Link>
               </>
@@ -54,11 +79,24 @@ export default function Header() {
 
           {/* User Menu */}
           <div className="flex items-center space-x-4">
+            {/* Dark Mode Toggle */}
+            <button
+              onClick={handleDarkModeToggle}
+              className="p-2 rounded-lg bg-gray-100 hover:bg-gray-200 dark:bg-gray-800 dark:hover:bg-gray-700 transition-colors"
+              title={isDarkMode ? 'Switch to light mode' : 'Switch to dark mode'}
+            >
+              {isDarkMode ? (
+                <Sun className="w-5 h-5 text-yellow-500" />
+              ) : (
+                <Moon className="w-5 h-5 text-gray-600" />
+              )}
+            </button>
+            
             {user ? (
               <div className="relative">
                 <button
                   onClick={() => setIsMenuOpen(!isMenuOpen)}
-                  className="flex items-center space-x-2 text-gray-700 hover:text-linkedin-600 transition-colors"
+                  className="flex items-center space-x-2 text-gray-700 dark:text-gray-300 hover:text-linkedin-600 dark:hover:text-linkedin-400 transition-colors"
                 >
                   <div className="w-8 h-8 bg-linkedin-600 rounded-full flex items-center justify-center">
                     <span className="text-white text-sm font-medium">
@@ -70,10 +108,10 @@ export default function Header() {
 
                 {/* Dropdown Menu */}
                 {isMenuOpen && (
-                  <div className="absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-lg border border-gray-200 py-2 z-50">
+                  <div className="absolute right-0 mt-2 w-48 bg-white dark:bg-gray-800 rounded-lg shadow-lg border border-gray-200 dark:border-gray-700 py-2 z-50">
                     <Link
                       href="/profile"
-                      className="flex items-center px-4 py-2 text-gray-700 hover:bg-gray-100 transition-colors"
+                      className="flex items-center px-4 py-2 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
                       onClick={() => setIsMenuOpen(false)}
                     >
                       <User className="w-4 h-4 mr-3" />
@@ -81,7 +119,7 @@ export default function Header() {
                     </Link>
                     <Link
                       href="/settings"
-                      className="flex items-center px-4 py-2 text-gray-700 hover:bg-gray-100 transition-colors"
+                      className="flex items-center px-4 py-2 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
                       onClick={() => setIsMenuOpen(false)}
                     >
                       <Settings className="w-4 h-4 mr-3" />
@@ -92,7 +130,7 @@ export default function Header() {
                         handleLogout();
                         setIsMenuOpen(false);
                       }}
-                      className="flex items-center w-full px-4 py-2 text-gray-700 hover:bg-gray-100 transition-colors"
+                      className="flex items-center w-full px-4 py-2 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
                     >
                       <LogOut className="w-4 h-4 mr-3" />
                       Logout
@@ -114,7 +152,7 @@ export default function Header() {
             {/* Mobile Menu Button */}
             <button
               onClick={() => setIsMenuOpen(!isMenuOpen)}
-              className="md:hidden p-2 text-gray-700 hover:text-linkedin-600 transition-colors"
+              className="md:hidden p-2 text-gray-700 dark:text-gray-300 hover:text-linkedin-600 dark:hover:text-linkedin-400 transition-colors"
             >
               {isMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
             </button>
@@ -123,38 +161,38 @@ export default function Header() {
 
         {/* Mobile Menu */}
         {isMenuOpen && (
-          <div className="md:hidden py-4 border-t border-gray-200">
+          <div className="md:hidden py-4 border-t border-gray-200 dark:border-gray-700">
             <nav className="flex flex-col space-y-4">
-              <Link
-                href="/"
-                className="text-gray-700 hover:text-linkedin-600 transition-colors"
-                onClick={() => setIsMenuOpen(false)}
-              >
-                Home
-              </Link>
-              {user && (
-                <>
-                  <Link
-                    href="/profile"
-                    className="text-gray-700 hover:text-linkedin-600 transition-colors"
-                    onClick={() => setIsMenuOpen(false)}
-                  >
-                    Profile
-                  </Link>
-                  <Link
-                    href="/users"
-                    className="text-gray-700 hover:text-linkedin-600 transition-colors"
-                    onClick={() => setIsMenuOpen(false)}
-                  >
-                    People
-                  </Link>
-                  <button
-                    onClick={() => {
-                      handleLogout();
-                      setIsMenuOpen(false);
-                    }}
-                    className="flex items-center text-gray-700 hover:text-linkedin-600 transition-colors"
-                  >
+                              <Link
+                  href="/"
+                  className="text-gray-700 dark:text-gray-300 hover:text-linkedin-600 dark:hover:text-linkedin-400 transition-colors"
+                  onClick={() => setIsMenuOpen(false)}
+                >
+                  Home
+                </Link>
+                {user && (
+                  <>
+                    <Link
+                      href="/profile"
+                      className="text-gray-700 dark:text-gray-300 hover:text-linkedin-600 dark:hover:text-linkedin-400 transition-colors"
+                      onClick={() => setIsMenuOpen(false)}
+                    >
+                      Profile
+                    </Link>
+                    <Link
+                      href="/users"
+                      className="text-gray-700 dark:text-gray-300 hover:text-linkedin-600 dark:hover:text-linkedin-400 transition-colors"
+                      onClick={() => setIsMenuOpen(false)}
+                    >
+                      People
+                    </Link>
+                    <button
+                      onClick={() => {
+                        handleLogout();
+                        setIsMenuOpen(false);
+                      }}
+                      className="flex items-center text-gray-700 dark:text-gray-300 hover:text-linkedin-600 dark:hover:text-linkedin-400 transition-colors"
+                    >
                     <LogOut className="w-4 h-4 mr-2" />
                     Logout
                   </button>

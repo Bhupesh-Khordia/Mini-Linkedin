@@ -82,12 +82,12 @@ export default function HomePage() {
 
   if (isLoading) {
     return (
-      <div className="min-h-screen bg-gray-50">
+      <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
         <Header />
         <div className="max-w-2xl mx-auto px-4 py-8">
           <div className="text-center">
             <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-linkedin-600 mx-auto"></div>
-            <p className="mt-4 text-gray-600">Loading posts...</p>
+            <p className="mt-4 text-gray-600 dark:text-gray-400">Loading posts...</p>
           </div>
         </div>
       </div>
@@ -95,7 +95,7 @@ export default function HomePage() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
       <Header />
       
       <main className="max-w-2xl mx-auto px-4 py-8">
@@ -113,12 +113,12 @@ export default function HomePage() {
                   value={newPost}
                   onChange={(e) => setNewPost(e.target.value)}
                   placeholder="What's on your mind?"
-                  className="w-full p-3 border border-gray-300 rounded-lg resize-none focus:outline-none focus:ring-2 focus:ring-linkedin-500 focus:border-transparent"
+                  className="w-full p-3 border border-gray-300 dark:border-gray-600 rounded-lg resize-none focus:outline-none focus:ring-2 focus:ring-linkedin-500 focus:border-transparent bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100"
                   rows={3}
                   maxLength={1000}
                 />
                 <div className="flex items-center justify-between mt-3">
-                  <span className="text-sm text-gray-500">
+                  <span className="text-sm text-gray-500 dark:text-gray-400">
                     {newPost.length}/1000 characters
                   </span>
                   <button
@@ -139,11 +139,11 @@ export default function HomePage() {
         <div className="space-y-6">
           {posts.length === 0 ? (
             <div className="text-center py-12">
-              <div className="w-16 h-16 bg-gray-200 rounded-full flex items-center justify-center mx-auto mb-4">
-                <Plus className="w-8 h-8 text-gray-400" />
+              <div className="w-16 h-16 bg-gray-200 dark:bg-gray-700 rounded-full flex items-center justify-center mx-auto mb-4">
+                <Plus className="w-8 h-8 text-gray-400 dark:text-gray-500" />
               </div>
-              <h3 className="text-lg font-medium text-gray-900 mb-2">No posts yet</h3>
-              <p className="text-gray-500 mb-4">
+              <h3 className="text-lg font-medium text-gray-900 dark:text-white mb-2">No posts yet</h3>
+              <p className="text-gray-500 dark:text-gray-400 mb-4">
                 {user ? 'Be the first to share something!' : 'Sign in to see posts from your network.'}
               </p>
               {!user && (

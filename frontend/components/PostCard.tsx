@@ -125,7 +125,7 @@ export default function PostCard({ post, onPostDeleted, onPostUpdated }: PostCar
   };
 
   return (
-    <div className="post-card">
+    <div className="post-card dark:bg-gray-800 dark:border-gray-700">
       {/* Post Header */}
       <div className="flex items-center justify-between mb-4">
         <div className="flex items-center space-x-3">
@@ -135,8 +135,8 @@ export default function PostCard({ post, onPostDeleted, onPostUpdated }: PostCar
             </span>
           </div>
           <div>
-            <h3 className="font-semibold text-gray-900">{post.author.name}</h3>
-            <p className="text-sm text-gray-500">
+            <h3 className="font-semibold text-gray-900 dark:text-white">{post.author.name}</h3>
+            <p className="text-sm text-gray-500 dark:text-gray-400">
               {formatDistanceToNow(new Date(post.createdAt), { addSuffix: true })}
             </p>
           </div>
@@ -155,16 +155,16 @@ export default function PostCard({ post, onPostDeleted, onPostUpdated }: PostCar
 
       {/* Post Content */}
       <div className="mb-4">
-        <p className="text-gray-900 whitespace-pre-wrap">{post.content}</p>
+        <p className="text-gray-900 dark:text-gray-100 whitespace-pre-wrap">{post.content}</p>
       </div>
 
       {/* Post Actions */}
-      <div className="flex items-center justify-between pt-4 border-t border-gray-100">
+      <div className="flex items-center justify-between pt-4 border-t border-gray-100 dark:border-gray-700">
         <div className="flex items-center space-x-4">
           <button
             onClick={handleLike}
             className={`flex items-center space-x-1 transition-colors ${
-              isLiked ? 'text-red-500' : 'text-gray-500 hover:text-red-500'
+              isLiked ? 'text-red-500' : 'text-gray-500 dark:text-gray-400 hover:text-red-500'
             }`}
           >
             <Heart className={`w-5 h-5 ${isLiked ? 'fill-current' : ''}`} />
@@ -173,7 +173,7 @@ export default function PostCard({ post, onPostDeleted, onPostUpdated }: PostCar
           
           <button
             onClick={() => setIsCommenting(!isCommenting)}
-            className="flex items-center space-x-1 text-gray-500 hover:text-linkedin-600 transition-colors"
+            className="flex items-center space-x-1 text-gray-500 dark:text-gray-400 hover:text-linkedin-600 dark:hover:text-linkedin-400 transition-colors"
           >
             <MessageCircle className="w-5 h-5" />
             <span className="text-sm">{post.commentCount}</span>
@@ -183,14 +183,14 @@ export default function PostCard({ post, onPostDeleted, onPostUpdated }: PostCar
 
       {/* Comment Section */}
       {isCommenting && (
-        <div className="mt-4 pt-4 border-t border-gray-100">
+        <div className="mt-4 pt-4 border-t border-gray-100 dark:border-gray-700">
           <div className="flex space-x-2">
             <input
               type="text"
               value={commentText}
               onChange={(e) => setCommentText(e.target.value)}
               placeholder="Write a comment..."
-              className="flex-1 input-field"
+              className="flex-1 input-field dark:bg-gray-800 dark:border-gray-600 dark:text-gray-100"
               onKeyPress={(e) => e.key === 'Enter' && handleComment()}
             />
             <button onClick={handleComment} className="btn-primary">
@@ -202,25 +202,25 @@ export default function PostCard({ post, onPostDeleted, onPostUpdated }: PostCar
 
       {/* Comments */}
       {post.comments.length > 0 && (
-        <div className="mt-4 pt-4 border-t border-gray-100">
+        <div className="mt-4 pt-4 border-t border-gray-100 dark:border-gray-700">
           <div className="space-y-3">
             {post.comments.map((comment) => (
               <div key={comment._id} className="flex items-start space-x-3">
                 <div className="w-6 h-6 bg-linkedin-600 rounded-full flex items-center justify-center flex-shrink-0">
                   <span className="text-white text-xs font-medium">
-                    {comment.user.name.charAt(0).toUpperCase()}
+                    {comment.user?.name?.charAt(0)?.toUpperCase() || '?'}
                   </span>
                 </div>
                 <div className="flex-1">
-                  <div className="bg-gray-50 rounded-lg p-3">
+                  <div className="bg-gray-50 dark:bg-gray-700 rounded-lg p-3">
                     <div className="flex items-center justify-between">
                       <div>
-                        <span className="font-medium text-sm text-gray-900">
-                          {comment.user.name}
+                        <span className="font-medium text-sm text-gray-900 dark:text-white">
+                          {comment.user?.name || 'Unknown User'}
                         </span>
-                        <p className="text-sm text-gray-700 mt-1">{comment.text}</p>
+                        <p className="text-sm text-gray-700 dark:text-gray-300 mt-1">{comment.text}</p>
                       </div>
-                      {currentUser && currentUser._id === comment.user._id && (
+                      {currentUser && comment.user && currentUser._id === comment.user._id && (
                         <button
                           onClick={() => handleDeleteComment(comment._id)}
                           className="text-gray-400 hover:text-red-500 transition-colors"
@@ -229,7 +229,7 @@ export default function PostCard({ post, onPostDeleted, onPostUpdated }: PostCar
                         </button>
                       )}
                     </div>
-                    <p className="text-xs text-gray-500 mt-2">
+                    <p className="text-xs text-gray-500 dark:text-gray-400 mt-2">
                       {formatDistanceToNow(new Date(comment.createdAt), { addSuffix: true })}
                     </p>
                   </div>

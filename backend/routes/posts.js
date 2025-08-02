@@ -129,6 +129,7 @@ router.put('/like/:id', auth, async (req, res) => {
     
     await post.save();
     await post.populate('author', 'name email profilePicture');
+    await post.populate('comments.user', 'name email profilePicture');
     
     res.json(post);
   } catch (error) {
