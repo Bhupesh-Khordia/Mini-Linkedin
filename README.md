@@ -127,6 +127,14 @@ npm run build
 npm start
 ```
 
+## 📱 Demo Account
+
+For testing purposes, you can use this demo accounts:
+
+### Demo User
+- **Email**: abc@gmail.com
+- **Password**: abc@123
+
 ## 🔧 API Endpoints
 
 ### Authentication
