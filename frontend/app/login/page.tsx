@@ -142,8 +142,8 @@ export default function LoginPage() {
               </div>
             </div>
             <div className="mt-6 text-center text-sm text-gray-600 dark:text-gray-400">
-              <p>Email: demo@example.com</p>
-              <p>Password: password123</p>
+              <p>Email: abc@gmail.com</p>
+              <p>Password: abc@123</p>
             </div>
           </div>
         </div>
