@@ -4,8 +4,8 @@ A modern, responsive LinkedIn-like community platform built with Next.js, Node.j
 
 ## 🚀 Live Demo
 
-- **Frontend**: [Vercel Deployment](https://linkedin-clone-frontend.vercel.app)
-- **Backend**: [Render Deployment](https://linkedin-clone-backend.onrender.com)
+- **Frontend**: [Vercel Deployment](https://mini-linkedin-opal.vercel.app/)
+- **Backend**: [Render Deployment](https://linkedin-clone-backend-t8tz.onrender.com/)
 
 ## ✨ Features
 
@@ -127,18 +127,6 @@ npm run build
 npm start
 ```
 
-## 📱 Demo Accounts
-
-For testing purposes, you can use these demo accounts:
-
-### Demo User 1
-- **Email**: demo@example.com
-- **Password**: password123
-
-### Demo User 2
-- **Email**: john@example.com
-- **Password**: password123
-
 ## 🔧 API Endpoints
 
 ### Authentication
@@ -200,30 +188,6 @@ For testing purposes, you can use these demo accounts:
 - Professional LinkedIn-inspired design
 - Dark mode support (planned)
 
-## 🚀 Deployment
-
-### Frontend (Vercel)
-1. Push code to GitHub
-2. Connect repository to Vercel
-3. Set environment variables in Vercel dashboard
-4. Deploy automatically
-
-### Backend (Render)
-1. Push code to GitHub
-2. Connect repository to Render
-3. Set environment variables in Render dashboard
-4. Deploy automatically
-
-### Environment Variables for Production
-```env
-# Backend
-MONGODB_URI=your_production_mongodb_uri
-JWT_SECRET=your_production_jwt_secret
-PORT=10000
-
-# Frontend
-NEXT_PUBLIC_API_URL=https://your-backend-url.onrender.com/api
-```
 
 ## 🔒 Security Features
 
@@ -260,10 +224,6 @@ The application includes comprehensive error handling and validation:
 4. Add tests if applicable
 5. Submit a pull request
 
-## 📄 License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
 ## 🙏 Acknowledgments
 
 - LinkedIn for design inspiration
@@ -276,10 +236,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 If you have any questions or need help with the project, please:
 
-1. Check the [Issues](https://github.com/yourusername/linkedin-clone/issues) page
-2. Create a new issue with detailed information
-3. Contact the maintainers
+1. Contact me on bhupeshy510@gmail.com
+2. Raise issue on this repo
 
 ---
-
-**Note**: This is a demo project created for educational purposes. It demonstrates modern web development practices and should not be used in production without proper security audits and additional features. 
