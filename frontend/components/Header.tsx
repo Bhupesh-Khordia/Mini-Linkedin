@@ -9,7 +9,8 @@ import toast from 'react-hot-toast';
 
 export default function Header() {
   const [user, setUser] = useState<UserType | null>(null);
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  // openMenu: null | 'profile' | 'mobile'
+  const [openMenu, setOpenMenu] = useState<null | 'profile' | 'mobile'>(null);
   const [isDarkMode, setIsDarkMode] = useState(false);
   const router = useRouter();
 
@@ -95,8 +96,9 @@ export default function Header() {
             {user ? (
               <div className="relative">
                 <button
-                  onClick={() => setIsMenuOpen(!isMenuOpen)}
+                  onClick={() => setOpenMenu(openMenu === 'profile' ? null : 'profile')}
                   className="flex items-center space-x-2 text-gray-700 dark:text-gray-300 hover:text-linkedin-600 dark:hover:text-linkedin-400 transition-colors"
+                  aria-label="Open profile menu"
                 >
                   <div className="w-8 h-8 bg-linkedin-600 rounded-full flex items-center justify-center">
                     <span className="text-white text-sm font-medium">
@@ -107,12 +109,12 @@ export default function Header() {
                 </button>
 
                 {/* Dropdown Menu */}
-                {isMenuOpen && (
+                {openMenu === 'profile' && (
                   <div className="absolute right-0 mt-2 w-48 bg-white dark:bg-gray-800 rounded-lg shadow-lg border border-gray-200 dark:border-gray-700 py-2 z-50">
                     <Link
                       href="/profile"
                       className="flex items-center px-4 py-2 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
-                      onClick={() => setIsMenuOpen(false)}
+                      onClick={() => setOpenMenu(null)}
                     >
                       <User className="w-4 h-4 mr-3" />
                       Profile
@@ -120,7 +122,7 @@ export default function Header() {
                     <Link
                       href="/settings"
                       className="flex items-center px-4 py-2 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
-                      onClick={() => setIsMenuOpen(false)}
+                      onClick={() => setOpenMenu(null)}
                     >
                       <Settings className="w-4 h-4 mr-3" />
                       Settings
@@ -128,7 +130,7 @@ export default function Header() {
                     <button
                       onClick={() => {
                         handleLogout();
-                        setIsMenuOpen(false);
+                        setOpenMenu(null);
                       }}
                       className="flex items-center w-full px-4 py-2 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
                     >
@@ -151,22 +153,23 @@ export default function Header() {
 
             {/* Mobile Menu Button */}
             <button
-              onClick={() => setIsMenuOpen(!isMenuOpen)}
+              onClick={() => setOpenMenu(openMenu === 'mobile' ? null : 'mobile')}
               className="md:hidden p-2 text-gray-700 dark:text-gray-300 hover:text-linkedin-600 dark:hover:text-linkedin-400 transition-colors"
+              aria-label="Open mobile menu"
             >
-              {isMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+              {openMenu === 'mobile' ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
             </button>
           </div>
         </div>
 
         {/* Mobile Menu */}
-        {isMenuOpen && (
+        {openMenu === 'mobile' && (
           <div className="md:hidden py-4 border-t border-gray-200 dark:border-gray-700">
             <nav className="flex flex-col space-y-4">
                               <Link
                   href="/"
                   className="text-gray-700 dark:text-gray-300 hover:text-linkedin-600 dark:hover:text-linkedin-400 transition-colors"
-                  onClick={() => setIsMenuOpen(false)}
+                  onClick={() => setOpenMenu(null)}
                 >
                   Home
                 </Link>
@@ -175,21 +178,21 @@ export default function Header() {
                     <Link
                       href="/profile"
                       className="text-gray-700 dark:text-gray-300 hover:text-linkedin-600 dark:hover:text-linkedin-400 transition-colors"
-                      onClick={() => setIsMenuOpen(false)}
+                      onClick={() => setOpenMenu(null)}
                     >
                       Profile
                     </Link>
                     <Link
                       href="/users"
                       className="text-gray-700 dark:text-gray-300 hover:text-linkedin-600 dark:hover:text-linkedin-400 transition-colors"
-                      onClick={() => setIsMenuOpen(false)}
+                      onClick={() => setOpenMenu(null)}
                     >
                       People
                     </Link>
                     <button
                       onClick={() => {
                         handleLogout();
-                        setIsMenuOpen(false);
+                        setOpenMenu(null);
                       }}
                       className="flex items-center text-gray-700 dark:text-gray-300 hover:text-linkedin-600 dark:hover:text-linkedin-400 transition-colors"
                     >
